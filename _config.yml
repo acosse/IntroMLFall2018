@@ -1,1 +1,10 @@
 theme: jekyll-theme-cayman
+
+title: Introduction to Machine Learning
+description: Machine Learning is getting more and more important in today's society. Along with 
+the spectacular success of deep learning, it is permeating medicine, finance and economics, 
+linguistics, genomics, and even art. After covering the necessary reminders on statistics and 
+probability, this class will study both supervised and unsupervised models, including linear regression 
+and classificiation, nearest neighbors, support vector machines, neural networks and 
+dimensionality reduction. Finally, the class will introduce the most recent models, among which the 
+generative adversarial networks. 
