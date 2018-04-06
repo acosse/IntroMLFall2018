@@ -1,7 +1,8 @@
 theme: jekyll-theme-cayman
 
 title: Introduction to Machine Learning
-description: > Machine Learning is getting more and more important in today's society. 
+description: > 
+               Machine Learning is getting more and more important in today's society. 
                Along with the spectacular success of deep learning, it is permeating medicine, 
                finance and economics,  linguistics, genomics, and even art. After covering the necessary 
                reminders on statistics and probability, this class will study both supervised and 
