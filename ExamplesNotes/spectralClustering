@@ -1,0 +1,129 @@
+print(__doc__)
+
+import time
+import warnings
+
+import numpy as np
+import matplotlib.pyplot as plt
+
+from sklearn import cluster, datasets, mixture
+from sklearn.neighbors import kneighbors_graph
+from sklearn.preprocessing import StandardScaler
+from itertools import cycle, islice
+from matplotlib.colors import ListedColormap
+
+np.random.seed(0)
+
+# ============
+# Generate datasets. We choose the size big enough to see the scalability
+# of the algorithms, but not too big to avoid too long running times
+# ============
+n_samples2 = 2000
+n_samples2 = 500
+
+
+# first example many points
+
+np.random.seed(0)
+
+Xmoons2,ymoons2 = datasets.make_moons(n_samples = n_samples2, noise=0.05)
+Xcircle2,ycircle2 = datasets.make_circles(n_samples = n_samples2, noise=0.05, factor=0.5, random_state=1)
+
+fig, axes = plt.subplots(nrows=2, ncols=2)
+
+cm = plt.cm.RdBu
+cm_bright = ListedColormap(['#FF0000', '#0000FF'])
+
+sz = ymoons2.shape
+#print(sz[0])
+
+axes[0, 0].set_title('Original Data ("moons")')
+axes[0, 0].scatter(Xmoons2[:, 0], Xmoons2[:, 1], c=np.ones(sz[0]),cmap=cm_bright, alpha=0.6,
+               edgecolors='k')
+axes[0, 1].set_title('Original Data ("circles")')
+axes[0, 1].scatter(Xcircle2[:, 0], Xcircle2[:, 1], c=np.ones(sz[0]),cmap=cm_bright, alpha=0.6,
+               edgecolors='k')
+
+
+
+# Now applying the spectral clustering algorithm
+
+spectral1 = cluster.SpectralClustering(n_clusters=2, eigen_solver='arpack',affinity="nearest_neighbors")
+spectral2 = cluster.SpectralClustering(n_clusters=2, eigen_solver='arpack',affinity="nearest_neighbors")
+
+
+spectral1.fit(Xmoons2)
+spectral2.fit(Xcircle2)
+
+LabelsMoon = spectral1.labels_
+LabelsCircle = spectral2.labels_
+
+axes[1, 0].set_title('Spectral Clustering ("moons")')
+axes[1, 0].scatter(Xmoons2[:, 0], Xmoons2[:, 1], c=LabelsMoon,cmap=cm_bright, alpha=0.6, edgecolors='k')
+axes[1, 1].set_title('Spectral Clustering ("circles")')
+axes[1, 1].scatter(Xcircle2[:, 0], Xcircle2[:, 1], c=LabelsCircle,cmap=cm_bright, alpha=0.6,edgecolors='k')
+      
+
+fig.tight_layout()
+
+fig.savefig('/Users/acosse/Desktop/Teaching/Machine Learning/syllabus/Deep learning class/figures/spectralClustering1')  
+
+
+#plt.show()
+
+
+# second example
+
+n_samples2 = 500
+
+
+# first example many points
+
+Xmoons2,ymoons2 = datasets.make_moons(n_samples = n_samples2, noise=0.1, random_state=0)
+Xcircle2,ycircle2 = datasets.make_circles(n_samples = n_samples2, noise=0.1, factor=0.5, random_state=1)
+
+fig, axes = plt.subplots(nrows=2, ncols=2)
+
+cm = plt.cm.RdBu
+cm_bright = ListedColormap(['#FF0000', '#0000FF'])
+
+sz = ymoons2.shape
+#print(sz[0])
+
+axes[0, 0].set_title('Original Data ("moons")')
+axes[0, 0].scatter(Xmoons2[:, 0], Xmoons2[:, 1], c=np.ones(sz[0]),cmap=cm_bright, alpha=0.6,
+               edgecolors='k')
+axes[0, 1].set_title('Original Data ("circles")')
+axes[0, 1].scatter(Xcircle2[:, 0], Xcircle2[:, 1], c=np.ones(sz[0]),cmap=cm_bright, alpha=0.6,
+               edgecolors='k')
+
+
+
+
+
+# Now applying the spectral clustering algorithm
+
+spectral1 = cluster.SpectralClustering(n_clusters=2, eigen_solver='arpack',affinity="nearest_neighbors")
+spectral2 = cluster.SpectralClustering(n_clusters=2, eigen_solver='arpack',affinity="nearest_neighbors")
+
+
+spectral1.fit(Xmoons2)
+spectral2.fit(Xcircle2)
+
+LabelsMoon = spectral1.labels_
+LabelsCircle = spectral2.labels_
+
+axes[1, 0].set_title('Spectral Clustering ("moons")')
+axes[1, 0].scatter(Xmoons2[:, 0], Xmoons2[:, 1], c=LabelsMoon,cmap=cm_bright, alpha=0.6, edgecolors='k')
+axes[1, 1].set_title('Spectral Clustering ("circles")')
+axes[1, 1].scatter(Xcircle2[:, 0], Xcircle2[:, 1], c=LabelsCircle,cmap=cm_bright, alpha=0.6,edgecolors='k')
+      
+
+fig.tight_layout()
+
+fig.savefig('/Users/acosse/Desktop/Teaching/Machine Learning/syllabus/Deep learning class/figures/spectralClustering2')
+
+#plt.show()
+
+
+

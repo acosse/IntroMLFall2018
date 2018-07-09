@@ -1,0 +1,138 @@
+print(__doc__)
+
+import numpy as np
+
+from sklearn.cluster import DBSCAN
+from sklearn import metrics
+from sklearn.datasets.samples_generator import make_blobs
+from sklearn.preprocessing import StandardScaler
+import matplotlib.pyplot as plt
+from sklearn import cluster, datasets, mixture
+
+
+X, y = make_blobs(n_samples=500, centers=3, n_features=3,cluster_std = .5,random_state=0)
+
+from sklearn.metrics.pairwise import euclidean_distances
+
+distMat = euclidean_distances(X, X)
+
+sigma = 2
+gaussKern = np.exp(-(distMat**2)/(2*np.square(sigma)))
+
+diagV = gaussKern.sum(axis=0)
+
+D = np.diag(diagV,0)
+
+Laplacian = D - gaussKern
+
+w,v = np.linalg.eig(Laplacian)
+
+
+w = np.sort(w)
+
+
+fig, axes = plt.subplots(nrows=2, ncols=2)
+
+
+#axes[1,0].set_title('eigenvalues')
+tmp1 = w.shape
+#print()
+EVNum = np.arange(1,tmp1[0]+1,1, dtype=None)
+
+#print(EVNum)
+#axes[1,0].plot(EVNum,w,'bo')
+
+
+spectral = cluster.SpectralClustering(n_clusters=3, eigen_solver='arpack',affinity="nearest_neighbors")
+spectral.fit(X)
+labels = spectral.labels_
+
+#axes[0,1].scatter(X[:, 0], X[:, 1], c=labels)
+
+# zooming on first 10 eigenvalues
+
+
+w = w[:10]
+tmp1 = w.shape
+#print()
+EVNum = np.arange(1,tmp1[0]+1,1, dtype=None)
+
+#print(EVNum)
+axes[0,1].plot(EVNum,w,'bo')
+
+axes[0,0].scatter(X[:, 0], X[:, 1], c=labels)
+
+
+
+# second step with 
+
+
+X, y = make_blobs(n_samples=500, centers=5, n_features=3,cluster_std = .5,random_state=0)
+
+from sklearn.metrics.pairwise import euclidean_distances
+
+distMat = euclidean_distances(X, X)
+
+sigma = 2
+gaussKern = np.exp(-(distMat**2)/(2*np.square(sigma)))
+
+diagV = gaussKern.sum(axis=0)
+
+D = np.diag(diagV,0)
+
+Laplacian = D - gaussKern
+
+w,v = np.linalg.eig(Laplacian)
+
+
+w = np.sort(w)
+
+
+
+#axes[1,0].set_title('eigenvalues')
+tmp1 = w.shape
+#print()
+EVNum = np.arange(1,tmp1[0]+1,1, dtype=None)
+
+#print(EVNum)
+#axes[1,0].plot(EVNum,w,'bo')
+
+
+spectral = cluster.SpectralClustering(n_clusters=5, eigen_solver='arpack',affinity="nearest_neighbors")
+spectral.fit(X)
+labels = spectral.labels_
+
+#axes[0,1].scatter(X[:, 0], X[:, 1], c=labels)
+
+# zooming on first 10 eigenvalues
+
+
+w = w[:10]
+tmp1 = w.shape
+#print()
+EVNum = np.arange(1,tmp1[0]+1,1, dtype=None)
+
+#print(EVNum)
+axes[1,0].plot(EVNum,w,'bo')
+
+axes[1,1].scatter(X[:, 0], X[:, 1], c=labels)
+
+
+
+
+
+
+
+
+fig.tight_layout()
+
+
+
+
+
+
+fig.savefig('/Users/acosse/Desktop/Teaching/Machine Learning/syllabus/Deep learning class/figures/spectralClustering3')
+
+
+
+
