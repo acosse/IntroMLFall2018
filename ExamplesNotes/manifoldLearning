@@ -27,6 +27,9 @@ ax1.scatter(X[:, 0], X[:, 1], X[:, 2], c=color, cmap=plt.cm.Spectral,edgecolor='
 
 fig.tight_layout()
 ax1.set_title('Swiss Roll View 1')
+plt.locator_params(axis='y', nbins=3)
+plt.locator_params(axis='x', nbins=3)
+plt.locator_params(axis='z', nbins=3)
 
 
 #ax2 = p3.Axes3D(fig)
@@ -39,6 +42,9 @@ ax2.scatter(X[:, 0], X[:, 1], X[:, 2], c=color, cmap=plt.cm.Spectral,edgecolor='
 
 
 ax2.set_title('Swiss Roll View 2')
+plt.locator_params(axis='y', nbins=3)
+plt.locator_params(axis='x', nbins=3)
+plt.locator_params(axis='z', nbins=3)
 
 ## Then showing the S curve
 
@@ -52,6 +58,9 @@ ax3.scatter(X[:, 0], X[:, 1], X[:, 2], c=color, cmap=plt.cm.Spectral,edgecolor='
 
 fig.tight_layout()
 ax3.set_title('S-Curve View 1')
+plt.locator_params(axis='y', nbins=3)
+plt.locator_params(axis='x', nbins=3)
+plt.locator_params(axis='z', nbins=3)
 
 
 #ax2 = p3.Axes3D(fig)
@@ -64,6 +73,9 @@ ax4.scatter(X[:, 0], X[:, 1], X[:, 2], c=color, cmap=plt.cm.Spectral,edgecolor='
 
 
 ax4.set_title('S-Curve View 2')
+plt.locator_params(axis='y', nbins=3)
+plt.locator_params(axis='x', nbins=3)
+plt.locator_params(axis='z', nbins=3)
 
 
 fig.tight_layout()
@@ -93,6 +105,9 @@ ax5.scatter(x, y, z, c=p[indices], cmap=plt.cm.rainbow,edgecolor='k')
 
 fig.tight_layout()
 ax5.set_title('Sphere View 1')
+plt.locator_params(axis='y', nbins=3)
+plt.locator_params(axis='x', nbins=3)
+plt.locator_params(axis='z', nbins=3)
 
 
 #ax2 = p3.Axes3D(fig)
@@ -105,6 +120,9 @@ ax6.scatter(x, y, z, c=p[indices], cmap=plt.cm.rainbow,edgecolor='k')
 
 
 ax6.set_title('Sphere View 2')
+plt.locator_params(axis='y', nbins=3)
+plt.locator_params(axis='x', nbins=3)
+plt.locator_params(axis='z', nbins=3)
 
 
 # sphere

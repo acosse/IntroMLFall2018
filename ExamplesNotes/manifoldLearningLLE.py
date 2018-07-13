@@ -1,8 +1,4 @@
 
-
-
-# comparisons of manifold methods
-
 import matplotlib.pyplot as plt
 
 # This import is needed to modify the way figure behaves
@@ -15,6 +11,8 @@ Axes3D
 from sklearn import manifold, datasets
 
 
+
+
 ## first showing the Swiss roll
 
 
@@ -23,16 +21,14 @@ n_samples = 4000
 
 X1, color1 = datasets.samples_generator.make_swiss_roll(n_samples=4000)
 
-Y1 = manifold.Isomap(n_neighbors, n_components=2).fit_transform(X1)
+Y1 = manifold.LocallyLinearEmbedding(n_neighbors, 2,method='standard').fit_transform(X1)
 
 
 n_points = 4000
 
 X2, color2 = datasets.samples_generator.make_s_curve(n_points, random_state=0)
 
-Y2 = manifold.Isomap(n_neighbors, n_components=2).fit_transform(X2)
-
-
+Y2 = manifold.LocallyLinearEmbedding(n_neighbors, 2,method='standard').fit_transform(X2)
 
 # Create our sphere.
 random_state = check_random_state(0)
@@ -51,7 +47,7 @@ sphere_data = np.array([x, y, z]).T
 n_neighbors = 10
 n_components = 2
 
-Y3 = manifold.Isomap(n_neighbors, n_components=2).fit_transform(sphere_data).T
+Y3 = manifold.LocallyLinearEmbedding(n_neighbors, 2,method='standard').fit_transform(sphere_data).T
 
 
 fig = plt.figure()
@@ -59,12 +55,15 @@ fig = plt.figure()
 ax1 = fig.add_subplot(321, projection='3d')
 ax1.scatter(X1[:, 0], X1[:, 1], X1[:, 2], c=color1, cmap=plt.cm.Spectral,edgecolor='k')
 ax1.set_title('Original Manifold')
+# To specify the number of ticks on both or any single axes
 plt.locator_params(axis='y', nbins=3)
 plt.locator_params(axis='x', nbins=3)
 plt.locator_params(axis='z', nbins=3)
+
+
 ax2 = fig.add_subplot(322)
 ax2.scatter(Y1[:,0], Y1[:,1], c=color1, cmap=plt.cm.Spectral)
-ax2.set_title('ISOMAP Embedding')
+ax2.set_title('LLE Embedding')
 plt.locator_params(axis='y', nbins=3)
 plt.locator_params(axis='x', nbins=3)
 plt.locator_params(axis='z', nbins=3)
@@ -79,7 +78,7 @@ plt.locator_params(axis='z', nbins=3)
 
 ax4 = fig.add_subplot(324)
 ax4.scatter(Y2[:,0], Y2[:,1], c=color2, cmap=plt.cm.Spectral)
-ax4.set_title('ISOMAP Embedding')
+ax4.set_title('LLE Embedding')
 plt.locator_params(axis='y', nbins=3)
 plt.locator_params(axis='x', nbins=3)
 plt.locator_params(axis='z', nbins=3)
@@ -94,16 +93,13 @@ plt.locator_params(axis='z', nbins=3)
 
 ax6 = fig.add_subplot(326)
 ax6.scatter(Y3[0], Y3[1],c=colors,cmap=plt.cm.rainbow)
-ax6.set_title('ISOMAP Embedding')
+ax6.set_title('LLE Embedding')
 plt.locator_params(axis='y', nbins=3)
 plt.locator_params(axis='x', nbins=3)
 plt.locator_params(axis='z', nbins=3)
 
 
 fig.tight_layout()
-fig.savefig('/Users/acosse/Desktop/Teaching/Machine Learning/syllabus/Deep learning class/figures/isomap1')
+fig.savefig('/Users/acosse/Desktop/Teaching/Machine Learning/syllabus/Deep learning class/figures/LLE1')
 
-
-
-
-#
+plt.show()
