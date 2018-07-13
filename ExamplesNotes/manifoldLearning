@@ -1,0 +1,121 @@
+
+
+# comparisons of manifold methods
+
+import matplotlib.pyplot as plt
+
+# This import is needed to modify the way figure behaves
+from mpl_toolkits.mplot3d import Axes3D
+import mpl_toolkits.mplot3d.axes3d as p3
+from sklearn.utils import check_random_state
+import numpy as np
+
+
+Axes3D
+
+from sklearn import manifold, datasets
+
+
+## first showing the Swiss roll
+
+X, color = datasets.samples_generator.make_swiss_roll(n_samples=4000)
+
+fig = plt.figure()
+
+ax1 = fig.add_subplot(321, projection='3d')
+ax1.scatter(X[:, 0], X[:, 1], X[:, 2], c=color, cmap=plt.cm.Spectral,edgecolor='k')
+
+fig.tight_layout()
+ax1.set_title('Swiss Roll View 1')
+
+
+#ax2 = p3.Axes3D(fig)
+
+ax2 = fig.add_subplot(322, projection='3d')
+ax2.view_init(7, -80)
+ax2.scatter(X[:, 0], X[:, 1], X[:, 2], c=color, cmap=plt.cm.Spectral,edgecolor='k')
+#ax2 = p3.Axes3D(fig)
+#ax2.view_init(7, -80)
+
+
+ax2.set_title('Swiss Roll View 2')
+
+## Then showing the S curve
+
+n_points = 4000
+
+X, color = datasets.samples_generator.make_s_curve(n_points, random_state=0)
+
+
+ax3 = fig.add_subplot(323, projection='3d')
+ax3.scatter(X[:, 0], X[:, 1], X[:, 2], c=color, cmap=plt.cm.Spectral,edgecolor='k')
+
+fig.tight_layout()
+ax3.set_title('S-Curve View 1')
+
+
+#ax2 = p3.Axes3D(fig)
+
+ax4 = fig.add_subplot(324, projection='3d')
+ax4.view_init(7, -80)
+ax4.scatter(X[:, 0], X[:, 1], X[:, 2], c=color, cmap=plt.cm.Spectral,edgecolor='k')
+#ax2 = p3.Axes3D(fig)
+#ax2.view_init(7, -80)
+
+
+ax4.set_title('S-Curve View 2')
+
+
+fig.tight_layout()
+
+## Finally showing the sphere 
+
+# Variables for manifold learning.
+n_neighbors = 10
+n_samples = 4000
+
+# Create our sphere.
+random_state = check_random_state(0)
+p = random_state.rand(n_samples) * (2 * np.pi - 0.55)
+t = random_state.rand(n_samples) * np.pi
+
+# Sever the poles from the sphere.
+indices = ((t < (np.pi - (np.pi / 8))) & (t > ((np.pi / 8))))
+colors = p[indices]
+x, y, z = np.sin(t[indices]) * np.cos(p[indices]), \
+    np.sin(t[indices]) * np.sin(p[indices]), \
+    np.cos(t[indices])
+
+ax5 = fig.add_subplot(325, projection='3d')
+
+ax5.scatter(x, y, z, c=p[indices], cmap=plt.cm.rainbow,edgecolor='k')
+
+
+fig.tight_layout()
+ax5.set_title('Sphere View 1')
+
+
+#ax2 = p3.Axes3D(fig)
+
+ax6 = fig.add_subplot(326, projection='3d')
+ax6.view_init(7, -80)
+ax6.scatter(x, y, z, c=p[indices], cmap=plt.cm.rainbow,edgecolor='k')
+#ax2 = p3.Axes3D(fig)
+#ax2.view_init(7, -80)
+
+
+ax6.set_title('Sphere View 2')
+
+
+# sphere
+
+
+
+
+
+fig.tight_layout()
+
+fig.savefig('/Users/acosse/Desktop/Teaching/Machine Learning/syllabus/Deep learning class/figures/manifolds1')
+
+
+#plt.show()
